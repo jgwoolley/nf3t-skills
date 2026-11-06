@@ -1,0 +1,20 @@
+<!-- build footer: filled in at build time by inject.sh -->
+<footer id="build-footer" data-built="__BUILD_TIME__" style="margin:2rem 0 1rem;text-align:center;font:12px/1.4 system-ui,sans-serif;opacity:.7">
+  <a id="build-footer-link" href="__COMMIT_URL__" rel="noopener noreferrer" title="__COMMIT_SHA__" style="color:inherit">Built <span id="build-footer-time">just now</span></a>
+</footer>
+<script>
+(function () {
+  var el = document.getElementById('build-footer'), out = document.getElementById('build-footer-time');
+  var built = Date.parse(el.dataset.built);
+  if (isNaN(built)) { out.textContent = 'recently'; return; }
+  var rtf = new Intl.RelativeTimeFormat(undefined, { numeric: 'always' });
+  var units = [['year', 31536000], ['month', 2592000], ['day', 86400], ['hour', 3600], ['minute', 60], ['second', 1]];
+  function render() {
+    var s = Math.round((built - Date.now()) / 1000), a = Math.abs(s);
+    for (var i = 0; i < units.length; i++) {
+      if (a >= units[i][1] || units[i][0] === 'second') { out.textContent = rtf.format(Math.round(s / units[i][1]), units[i][0]); return; }
+    }
+  }
+  render(); setInterval(render, 1000);
+})();
+</script>

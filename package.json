@@ -1,0 +1,24 @@
+{
+  "name": "nf3t-skills",
+  "version": "1.0.0",
+  "description": "nf3t agent skills: standing rules for every project (build footer, privacy by default, CLIs first, web checks).",
+  "keywords": [
+    "pi-package",
+    "agent-skills"
+  ],
+  "files": [
+    "plugins/devbox/skills",
+    ".claude-plugin",
+    ".omp-plugin"
+  ],
+  "pi": {
+    "skills": [
+      "./plugins/devbox/skills"
+    ]
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgwoolley/nf3t-skills.git"
+  }
+}

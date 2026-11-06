@@ -1,0 +1,5 @@
+{
+  "name": "devbox",
+  "version": "0.1.0",
+  "description": "Build footer linking to the commit, privacy by default, use configured CLIs first, verify web pages with headless Chromium, new-project scaffolding."
+}

@@ -1,0 +1,38 @@
+# Builds the skills site with skills-pages and deploys it to GitHub Pages.
+# Enable Pages with "Source: GitHub Actions" in the repository settings.
+name: skills-pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: "node:22"
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      DO_NOT_TRACK: "1"
+    steps:
+      - uses: actions/checkout@v4
+      # Inside a container git refuses the workspace without this, and the site would lose its commit details.
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - id: pages
+        uses: actions/configure-pages@v5
+      # Temporary: @nf3t/skills-pages is not on npm yet. Pinned to a commit; swap for the npm line below once it is published.
+      - run: npx --yes github:jgwoolley/skills-pages#21743403cedb8365e79b42763851a21ee32cbe01 build --no-interactive --out "public" --base-url "${{ steps.pages.outputs.base_url }}/"
+      # - run: npx --yes @nf3t/skills-pages build --no-interactive --out "public" --base-url "${{ steps.pages.outputs.base_url }}/"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - id: deployment
+        uses: actions/deploy-pages@v4

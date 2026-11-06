@@ -1,0 +1,61 @@
+{
+  "name": "nf3t-skills",
+  "owner": {
+    "name": "James Woolley"
+  },
+  "metadata": {
+    "description": "nf3t agent skills: standing rules for every project (build footer, privacy by default, CLIs first, web checks)."
+  },
+  "plugins": [
+    {
+      "name": "devbox",
+      "source": "./plugins/devbox",
+      "description": "Standing rules for every project: commit-linked build footer, private-by-default, CLI-first, headless web checks."
+    },
+    {
+      "name": "build-footer",
+      "description": "Add the standard \"Built 3 seconds ago\" footer, linking to the commit on GitHub or GitLab, to any website or web app. Use whenever creating or modifying a website, static site, or web UI.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/devbox/skills/build-footer"
+      ]
+    },
+    {
+      "name": "new-project",
+      "description": "Scaffold a new project (website, web app, tool) in ~/workspace with the standing rules already applied - git repo, privacy defaults, commit-linked build footer, and Traefik labels to get http://<name>.localhost. Use when the user asks to start, create or scaffold a new project.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/devbox/skills/new-project"
+      ]
+    },
+    {
+      "name": "privacy-by-default",
+      "description": "Apply the private-by-default rules to any project that handles user data, serves a web page, or pulls in tooling/dependencies. Use when creating a project, adding a feature that touches data, adding a dependency or third-party service, or setting up a build.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/devbox/skills/privacy-by-default"
+      ]
+    },
+    {
+      "name": "use-clis-first",
+      "description": "Prefer installed, authenticated CLIs (gh, glab, docker, dotnet, mvn, gradle, pnpm, playwright) over web fetching, raw API calls, scraping or MCP for the same job. Use before reaching for WebFetch, curl against an API, or a browser when a CLI could do it.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/devbox/skills/use-clis-first"
+      ]
+    },
+    {
+      "name": "verify-web",
+      "description": "Open a web page in headless Chromium inside the devbox to take a screenshot and report console errors, failed requests and third-party hosts. Use to verify any website or UI change actually works, including http://*.localhost project URLs behind Traefik.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/devbox/skills/verify-web"
+      ]
+    }
+  ]
+}
