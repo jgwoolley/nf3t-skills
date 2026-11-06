@@ -28,14 +28,7 @@ jobs:
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - id: pages
         uses: actions/configure-pages@v5
-      # Temporary: @nf3t/skills-pages is not on npm yet. Pinned to a commit; swap for the npm line below once it is published.
-      # npx/global install from git fail on node:22 (Arborist error; tsc missing without devDependencies), so clone, build and run it.
-      - run: |
-          git clone https://github.com/jgwoolley/skills-pages.git "$RUNNER_TEMP/skills-pages"
-          git -C "$RUNNER_TEMP/skills-pages" checkout 21743403cedb8365e79b42763851a21ee32cbe01
-          npm --prefix "$RUNNER_TEMP/skills-pages" ci
-      - run: node "$RUNNER_TEMP/skills-pages/dist/src/cli.js" build --no-interactive --out "public" --base-url "${{ steps.pages.outputs.base_url }}/"
-      # - run: npx --yes @nf3t/skills-pages build --no-interactive --out "public" --base-url "${{ steps.pages.outputs.base_url }}/"
+      - run: npx --yes @nf3t/skills-pages@1.0.0 build --no-interactive --out "public" --base-url "${{ steps.pages.outputs.base_url }}/"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
