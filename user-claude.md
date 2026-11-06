@@ -6,4 +6,4 @@
 - Prefer installed, configured CLIs (`gh`, `glab`, `docker`, ...) over web fetch, raw API calls or MCP: `use-clis-first`.
 - Check web work in headless Chromium before calling it done: `verify-web`.
 - Local URLs are plain HTTP `http://<project>.localhost` behind the devbox Traefik (one login for all pages); never add TLS or run a second Traefik.
-- create a commit.sh file and keep it up to date with a very high level summary of that have been made since last commit.
+- create a commit.sh file and keep it up to date with a very high level summary of that have been made since last commit. Make it git ignored.
